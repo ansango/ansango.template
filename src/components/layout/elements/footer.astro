@@ -1,0 +1,116 @@
+---
+/**
+ * 👣 Footer Element
+ * 
+ * @description Site footer with navigation links, social links, and theme toggle.
+ * Organized in 4-column grid (personal, content, explore, social sections).
+ * 
+ * @usage
+ * ```astro
+ * <Footer />
+ * ```
+ * 
+ * @compatible
+ * - 🔗 Uses Link component for all navigation
+ * - 🌗 Includes Theme toggle button
+ * - 🌐 Shows ExternalLinkIcon for external links
+ * - 📦 Wrapped in Container component
+ * - 📱 Responsive grid layout
+ */
+import { Container, Link, } from "@/components/atoms";
+import { site } from "@/constants";
+import { getPublishedEntries } from "@/lib/utils";
+import Theme from "./theme.astro";
+import { ExternalLinkIcon } from "@/components/icons";
+---
+
+<Container>
+  <footer class="border-divider grid grid-cols-12 gap-x-4 border-t py-4">
+    <div class="col-span-6 sm:col-span-3">
+      <ul class="text-muted">
+        {
+          getPublishedEntries(site.tree.personal).map(
+            ([_, { title, url, blank }]) => (
+              <li class="list-none">
+                <Link className="block" href={String(url)} {blank}>
+                  {title}
+                </Link>
+              </li>
+            ),
+          )
+        }
+      </ul>
+    </div>
+    <div class="col-span-6 sm:col-span-3">
+      <ul class="text-muted">
+        {
+          getPublishedEntries(site.tree.content).map(
+            ([_, { title, url, blank }]) => (
+              <li class="list-none">
+                <Link className="block" href={String(url)} {blank}>
+                  {title}
+                </Link>
+              </li>
+            ),
+          )
+        }
+      </ul>
+    </div>
+    <div class="col-span-6 sm:col-span-3">
+      <ul class="text-muted">
+        {
+          getPublishedEntries(site.tree.explore).map(
+            ([_, { title, url, blank }]) => {
+              return (
+                <li class="list-none">
+                  <Link className="block" href={String(url)} {blank}>
+                    {title}
+                  </Link>
+                </li>
+              );
+            },
+          )
+        }
+      </ul>
+    </div>
+    <div class="col-span-6 sm:col-span-3">
+      <ul class="text-muted">
+        {
+          getPublishedEntries(site.tree.social).map(
+            ([_, { title, url, blank }]) => {
+              return (
+                <li class="list-none">
+                  <Link
+                    className="inline-flex items-center"
+                    href={String(url)}
+                    {blank}
+                  >
+                    {title}
+
+                    <ExternalLinkIcon />
+                  </Link>
+                </li>
+              );
+            },
+          )
+        }
+      </ul>
+    </div>
+
+    <div
+      class="border-divider col-span-12 flex items-center justify-between border-t pt-4"
+    >
+      <p class="text-muted mb-0 text-sm">
+        &copy; {new Date().getFullYear()}
+        {site.author}. Construido con
+        <Link className="inline-flex items-center" href="https://astro.build/">Astro</Link> y <a
+          class="inline-flex items-center"
+          href="https://svelte.dev/"
+        >
+          Svelte
+        </a>.
+      </p>
+      <Theme />
+    </div>
+  </footer>
+</Container>

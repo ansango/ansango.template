@@ -1,0 +1,41 @@
+---
+/**
+ * 🏠 HomeHero Organism
+ * 
+ * @description Homepage hero section with avatar and introduction.
+ * Displays site owner info with avatar image and bio.
+ * 
+ * @usage
+ * ```astro
+ * <HomeHero />
+ * ```
+ * 
+ * @compatible
+ * - 🖼️ Uses Image component for avatar
+ * - 🔗 Includes Link with ExternalLinkIcon
+ * - 👋 Personal introduction section
+ */
+import { Link, Image } from "@/components/atoms";
+import { ExternalLinkIcon } from "@/components/icons";
+import { site } from "@/constants";
+---
+
+<section class="space-y-4">
+  <div class="flex flex-row-reverse items-center justify-end gap-4">
+    <h1 class="mb-0">ansango</h1>
+    <div
+      class="border-divider size-12 overflow-hidden rounded-full border-[1.5px]"
+    >
+      <Image src={site.avatar} />
+    </div>
+  </div>
+  <p class="mb-0">
+    Hola, soy <span class="font-medium">Aníbal Santos</span> 👋, escribo sobre tecnología,
+    trabajo como Tech Lead en <Link
+      className="external-link inline-flex items-center font-medium underline underline-offset-2"
+      href="https://innusual.tech"
+      blank
+      >innusual <ExternalLinkIcon />
+    </Link>. Aquí encontrarás parte de mis wikis, insights, y algunos hacks.
+  </p>
+</section>

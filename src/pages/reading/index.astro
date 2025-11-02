@@ -1,0 +1,19 @@
+---
+import { LayoutDefault } from "@/components/layout";
+import {
+  ReadingHero,
+  ReadingList,
+  ReadingPagination,
+} from "@/components/organisms/reading";
+import { site } from "@/constants";
+import { getBookmarksByCollection } from "@/lib/raindrop";
+
+const entries = await getBookmarksByCollection("reading");
+const meta = site.pages.reading;
+---
+
+<LayoutDefault {...meta} type="main">
+  <ReadingHero />
+  <ReadingList {entries} isIndex />
+  <ReadingPagination {entries} isIndex />
+</LayoutDefault>

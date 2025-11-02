@@ -1,0 +1,26 @@
+---
+import { LayoutDefault } from "@/components/layout";
+import {
+  BookmarkHero,
+  BookmarkList,
+  BookmarkPagination,
+} from "@/components/organisms/bookmarks/[bookmark]";
+import { site } from "@/constants";
+import { getBookmarksStaticPaths } from "@/lib/astro";
+import { getBookmarksByCollection } from "@/lib/raindrop";
+
+export { getBookmarksStaticPaths as getStaticPaths };
+
+const { collection } = Astro.params;
+const entries = await getBookmarksByCollection(collection);
+const meta = site.pages.bookmarks;
+---
+
+<LayoutDefault {...meta} type="main">
+  <BookmarkHero
+    collection={collection.replaceAll(/[.-]/g, " ")}
+    entriesCount={entries.length}
+  />
+  <BookmarkList {entries} isIndex />
+  <BookmarkPagination {entries} isIndex {collection} />
+</LayoutDefault>

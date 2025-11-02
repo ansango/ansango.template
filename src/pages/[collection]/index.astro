@@ -1,0 +1,27 @@
+---
+import { type CollectionName } from "@/content.config";
+import { getCollectionStaticPaths } from "@/lib/astro";
+import {
+  getAllCollectionsByCategory,
+  getIsSimpleCollection,
+} from "@/lib/collections";
+import {
+  CollectionIndexTemplate,
+  CollectionSinglePageTemplate,
+} from "@/components/templates";
+
+export { getCollectionStaticPaths as getStaticPaths };
+
+const { collection } = Astro.params as { collection: CollectionName };
+const entries = (await getAllCollectionsByCategory())[collection];
+const simpleCollection = getIsSimpleCollection(entries);
+if (!entries) return Astro.redirect("/");
+---
+
+{
+  simpleCollection ? (
+    <CollectionSinglePageTemplate {collection} entryId={entries[0].id} />
+  ) : (
+    <CollectionIndexTemplate {collection} {entries} isIndex />
+  )
+}

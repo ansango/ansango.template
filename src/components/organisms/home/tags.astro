@@ -1,0 +1,44 @@
+---
+/**
+ * 🏷️ Tags Organism
+ * 
+ * @description Tag cloud for homepage navigation.
+ * Displays all available tags with links to tag archive pages.
+ * 
+ * @usage
+ * ```astro
+ * <Tags tags={allTags} />
+ * ```
+ * 
+ * @compatible
+ * - 🏷️ Uses Tag component for each tag
+ * - 🔗 Links to tag archive pages
+ * - 📊 Displays tags in comma-separated list
+ */
+import { Link, Tag } from "@/components/atoms";
+
+interface Props {
+  tags: string[];
+}
+
+const { tags } = Astro.props;
+---
+
+<section>
+  <h2 class="text-muted font-medium">
+    <Link href="/tags">Tags</Link>
+  </h2>
+
+  <ul class="flex flex-wrap gap-1 mb-0">
+    {
+      tags.map((tag, i) => {
+        return (
+          <li class="flex list-none">
+            <Tag href={`/tags/${tag}`}>{tag.replace(/-/g, " ")}</Tag>
+            {i !== tags.length - 1 && <span class="text-muted">,</span>}
+          </li>
+        );
+      })
+    }
+  </ul>
+</section>

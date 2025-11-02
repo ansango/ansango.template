@@ -1,0 +1,71 @@
+---
+/**
+ * 📄 Pagination Component
+ * 
+ * @description Navigation component for paginated content lists.
+ * Displays current page, total pages, and prev/next navigation links.
+ * 
+ * @usage
+ * ```astro
+ * <Pagination
+ *   currentPage={2}
+ *   totalPages={5}
+ *   prevUrl="/blog/"
+ *   nextUrl="/blog/3/"
+ * />
+ * ```
+ * 
+ * @compatible
+ * - 🔗 Uses Link component for navigation
+ * - 📝 Used in collection and archive pages
+ * - ♿ Accessible with ARIA labels
+ */
+import { Link } from "@/components/atoms";
+
+export interface Props {
+  currentPage: number;
+  totalPages: number;
+  prevUrl: string;
+  nextUrl: string;
+  className?: string;
+}
+
+const {
+  currentPage,
+  totalPages,
+  prevUrl,
+  nextUrl,
+  className = "",
+} = Astro.props;
+const prevDisabled = currentPage <= 1;
+const nextDisabled = currentPage >= totalPages;
+---
+
+{
+  totalPages > 1 && (
+    <nav
+      aria-label="Pagination"
+      class={`flex justify-between pt-4 ${className}`}
+    >
+      <Link
+        disabled={prevDisabled}
+        href={prevUrl}
+        className={`mr-4 ${prevDisabled ? "text-muted opacity-60" : ""}`}
+        ariaLabel="Previous"
+      >
+        ← Ant
+      </Link>
+      <span>
+        {currentPage} / {totalPages}
+      </span>
+      <Link
+        disabled={nextDisabled}
+        href={nextUrl}
+        className={`ml-4 ${nextDisabled ? "text-muted opacity-60" : ""}`}
+        ariaLabel="Next"
+      >
+        Sig →
+      </Link>
+    </nav>
+  )
+}

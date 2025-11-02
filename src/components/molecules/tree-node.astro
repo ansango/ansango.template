@@ -1,0 +1,64 @@
+---
+/**
+ * 🌳 TreeNode Component
+ * 
+ * @description Recursive tree navigation component for hierarchical content.
+ * Renders folders as expandable details and files as links with appropriate icons.
+ * 
+ * @usage
+ * ```astro
+ * <TreeNode node={wikiTree} level={0} />
+ * ```
+ * 
+ * @compatible
+ * - 📁 Uses FolderIcon for directories
+ * - 📄 Uses FileIcon for documents
+ * - ➡️ Includes ChevronIcon for expand/collapse
+ * - 🔄 Recursively renders child nodes
+ * - 📝 Used primarily in Wiki navigation
+ */
+import { capitalize } from "@/lib/utils";
+import type { NodeItem } from "@/lib/tree-node";
+import { ChevronIcon, FolderIcon, FileIcon } from "@/components/icons";
+
+interface Props {
+  node: NodeItem;
+  level?: number;
+}
+
+const { node, level = 0 } = Astro.props;
+const isFolder = node.type === "folder";
+const hasChildren = node.children && node.children.length > 0;
+const paddingLeft = level * 12 + 8;
+---
+
+{
+  isFolder && hasChildren ? (
+    <details open={level === 0 || level === 1}>
+      <summary
+        class="flex cursor-pointer list-none items-center gap-1.5 rounded px-2 py-1 text-sm font-semibold transition-colors"
+        style={`padding-left: ${paddingLeft}px`}
+      >
+        <ChevronIcon className="chevron-right text-muted size-4 shrink-0 transition-transform" />
+        <FolderIcon className="text-muted size-3.5 shrink-0" />
+        <span class="truncate">
+          {capitalize(node.name.replaceAll("-", " "))}
+        </span>
+      </summary>
+      <div class="mt-0.5">
+        {node.children?.map((child) => (
+          <Astro.self node={child} level={level + 1} />
+        ))}
+      </div>
+    </details>
+  ) : (
+    <a
+      href={node.path}
+      class="flex items-center gap-1.5 rounded px-2 py-1 text-sm transition-colors"
+      style={`padding-left: ${paddingLeft}px`}
+    >
+      <FileIcon className="text-muted size-4 shrink-0" />
+      <span class="truncate">{capitalize(node.name.replaceAll("-", " "))}</span>
+    </a>
+  )
+}

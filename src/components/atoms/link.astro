@@ -1,0 +1,65 @@
+---
+/**
+ * 🔗 Link Component
+ * 
+ * @description Link component with automatic handling of external links and disabled state.
+ * Renders a <span> when disabled instead of a link.
+ * 
+ * @usage
+ * ```astro
+ * <Link href="/about">About me</Link>
+ * 
+ * <!-- External link -->
+ * <Link href="https://github.com" blank>GitHub</Link>
+ * 
+ * <!-- Disabled -->
+ * <Link href="/soon" disabled>Coming soon</Link>
+ * ```
+ * 
+ * @compatible
+ * - 🔘 Used internally by Button component
+ * - 📄 Base for site-wide navigation
+ * - ♿ Includes appropriate ARIA attributes
+ */
+interface Props {
+  href: string;
+  className?: string;
+  ariaLabel?: string;
+  title?: string;
+  disabled?: boolean;
+  blank?: boolean;
+}
+
+const {
+  href,
+  className,
+  ariaLabel,
+  title,
+  disabled = false,
+  blank = false,
+} = Astro.props;
+---
+
+{
+  disabled ? (
+    <span
+      class={className ?? ""}
+      aria-label={ariaLabel}
+      title={title}
+      aria-disabled={disabled}
+    >
+      <slot />
+    </span>
+  ) : (
+    <a
+      {href}
+      class={`${className ?? ""}`}
+      aria-label={ariaLabel}
+      title={title}
+      target={blank ? "_blank" : undefined}
+      rel={blank ? "noopener noreferrer" : undefined}
+    >
+      <slot />
+    </a>
+  )
+}

@@ -1,0 +1,40 @@
+---
+/**
+ * 📡 RssIcon Component
+ * 
+ * @description RSS feed icon with radiating waves.
+ * Indicates RSS subscription functionality.
+ * 
+ * @usage
+ * ```astro
+ * <RssIcon />
+ * <RssIcon className="size-4" />
+ * ```
+ * 
+ * @compatible
+ * - 📤 Used in Share component for RSS feed links
+ * - 🔘 Typically inside Button component
+ * - 📰 Links to site's RSS feed endpoint
+ */
+import { Svg } from "@/components/atoms";
+
+interface Props {
+  className?: string;
+}
+
+const { className } = Astro.props;
+---
+
+<Svg className={className}>
+  <g
+    fill="none"
+    stroke="currentColor"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    stroke-width="2"
+    ><path d="M4 11a9 9 0 0 1 9 9M4 4a16 16 0 0 1 16 16"></path><circle
+      cx="5"
+      cy="19"
+      r="1"></circle></g
+  >
+</Svg>

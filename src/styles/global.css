@@ -1,0 +1,7 @@
+@import "@fontsource-variable/inter";
+@import "tailwindcss";
+@import "./theme.css";
+@import "./main.css";
+@import "./headings.css";
+@import "./content.css";
+@import "./tables.css";

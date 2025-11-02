@@ -1,0 +1,102 @@
+---
+/**
+ * ▶️ PlayIcon Component
+ * 
+ * @description Animated audio equalizer bars icon.
+ * Displays a pulsing animation to indicate active music playback.
+ * 
+ * @usage
+ * ```astro
+ * <PlayIcon />
+ * <PlayIcon className="size-4 text-accent" />
+ * ```
+ * 
+ * @compatible
+ * - 🎵 Used in PlayNow and PlayNowMini components
+ * - 🔊 Indicates currently playing music from Last.fm
+ * - ⏯ Animated SVG with smooth transitions
+ */
+import { Svg } from "@/components/atoms";
+
+interface Props {
+  className?: string;
+}
+
+const { className } = Astro.props;
+---
+
+<Svg className={className}>
+  <rect width="2.8" height="12" x="1" y="6" fill="currentColor"
+    ><animate
+      attributeName="y"
+      begin="SVGKWB9Ob0W.begin+0.4s"
+      calcMode="spline"
+      dur="0.6s"
+      keySplines=".14,.73,.34,1;.65,.26,.82,.45"
+      values="6;1;6"></animate><animate
+      attributeName="height"
+      begin="SVGKWB9Ob0W.begin+0.4s"
+      calcMode="spline"
+      dur="0.6s"
+      keySplines=".14,.73,.34,1;.65,.26,.82,.45"
+      values="12;22;12"></animate></rect
+  ><rect width="2.8" height="12" x="5.8" y="6" fill="currentColor"
+    ><animate
+      attributeName="y"
+      begin="SVGKWB9Ob0W.begin+0.2s"
+      calcMode="spline"
+      dur="0.6s"
+      keySplines=".14,.73,.34,1;.65,.26,.82,.45"
+      values="6;1;6"></animate><animate
+      attributeName="height"
+      begin="SVGKWB9Ob0W.begin+0.2s"
+      calcMode="spline"
+      dur="0.6s"
+      keySplines=".14,.73,.34,1;.65,.26,.82,.45"
+      values="12;22;12"></animate></rect
+  ><rect width="2.8" height="12" x="10.6" y="6" fill="currentColor"
+    ><animate
+      id="SVGKWB9Ob0W"
+      attributeName="y"
+      begin="0;SVGCkSt6baQ.end-0.1s"
+      calcMode="spline"
+      dur="0.6s"
+      keySplines=".14,.73,.34,1;.65,.26,.82,.45"
+      values="6;1;6"></animate><animate
+      attributeName="height"
+      begin="0;SVGCkSt6baQ.end-0.1s"
+      calcMode="spline"
+      dur="0.6s"
+      keySplines=".14,.73,.34,1;.65,.26,.82,.45"
+      values="12;22;12"></animate></rect
+  ><rect width="2.8" height="12" x="15.4" y="6" fill="currentColor"
+    ><animate
+      attributeName="y"
+      begin="SVGKWB9Ob0W.begin+0.2s"
+      calcMode="spline"
+      dur="0.6s"
+      keySplines=".14,.73,.34,1;.65,.26,.82,.45"
+      values="6;1;6"></animate><animate
+      attributeName="height"
+      begin="SVGKWB9Ob0W.begin+0.2s"
+      calcMode="spline"
+      dur="0.6s"
+      keySplines=".14,.73,.34,1;.65,.26,.82,.45"
+      values="12;22;12"></animate></rect
+  ><rect width="2.8" height="12" x="20.2" y="6" fill="currentColor"
+    ><animate
+      id="SVGCkSt6baQ"
+      attributeName="y"
+      begin="SVGKWB9Ob0W.begin+0.4s"
+      calcMode="spline"
+      dur="0.6s"
+      keySplines=".14,.73,.34,1;.65,.26,.82,.45"
+      values="6;1;6"></animate><animate
+      attributeName="height"
+      begin="SVGKWB9Ob0W.begin+0.4s"
+      calcMode="spline"
+      dur="0.6s"
+      keySplines=".14,.73,.34,1;.65,.26,.82,.45"
+      values="12;22;12"></animate></rect
+  >
+</Svg>

@@ -1,0 +1,49 @@
+---
+/**
+ * 🧩 Header Element
+ * 
+ * @description Fixed top navigation bar with site name, breadcrumb, and search.
+ * Shows current section based on URL path with backdrop blur effect.
+ * 
+ * @usage
+ * ```astro
+ * <Header />
+ * ```
+ * 
+ * @compatible
+ * - 🔍 Includes Searcher component
+ * - 📦 Uses Container for content alignment
+ * - 🎨 Fixed positioning with backdrop blur
+ * - 🧷 Auto-generates breadcrumb from path
+ */
+import { site } from "@/constants";
+import { Container } from "@/components/atoms";
+import { Searcher } from "@/components/molecules";
+const pathname = Astro.url.pathname;
+const path = pathname.split("/").filter(Boolean)[0] || null;
+---
+
+<header
+  class="fixed top-0 right-0 left-0 z-50 py-4 saturate-100 backdrop-blur-sm"
+>
+  <Container>
+    <div class="flex flex-wrap justify-between gap-y-2">
+      <div>
+        <a href="/">
+          {site.name}
+        </a>
+        {
+          path && (
+            <>
+              <span class="text-muted"> / </span>
+              <a class="text-muted" href={`/${path}`}>
+                {path}
+              </a>
+            </>
+          )
+        }
+      </div>
+      <Searcher />
+    </div>
+  </Container>
+</header>

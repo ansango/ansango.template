@@ -1,0 +1,29 @@
+---
+import { site } from "@/constants";
+import { getPagination } from "@/lib/collections";
+import { Pagination as BasePagination } from "@/components/molecules";
+import type { CachedBookmarkData } from "@/lib/raindrop";
+
+interface Props {
+  entries: CachedBookmarkData[];
+  collection: string;
+  isIndex: boolean;
+  page?: number;
+}
+
+const { entries, isIndex, page = 1, collection } = Astro.props;
+
+const { currentPage, totalPages } = getPagination({
+  isIndex,
+  entries,
+  page,
+  entriesPerPage: site.pages.bookmarks.entriesPerPage,
+});
+---
+
+<BasePagination
+  {currentPage}
+  {totalPages}
+  prevUrl={`/bookmarks/${collection}${currentPage - 1 !== 1 ? "/" + (currentPage - 1) : ""}/`}
+  nextUrl={`/bookmarks/${collection}/${currentPage + 1}/`}
+/>

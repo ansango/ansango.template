@@ -1,0 +1,63 @@
+---
+/**
+ * 📄 SingleEntry Template
+ * 
+ * @description Simple single-page entry template.
+ * Used for standalone pages like About, Uses, Now, etc.
+ * 
+ * @usage
+ * ```astro
+ * <SingleEntry collection="about" entryId="index" />
+ * ```
+ * 
+ * @compatible
+ * - 🎯 Uses LayoutDefault wrapper
+ * - 📅 Shows publication/modification date
+ * - 📝 Renders markdown content
+ * - 🧩 Includes Open Graph metadata
+ */
+import type { CollectionName } from "@/content.config";
+import { getEntry, render } from "astro:content";
+import { getFormatDate } from "@/lib/utils";
+import { LayoutDefault } from "@/components/layout";
+
+
+interface Props {
+  collection: CollectionName;
+  entryId: string;
+}
+
+const { collection, entryId } = Astro.props;
+const entry = await getEntry(collection, entryId);
+
+if (!entry) {
+  throw new Error(`Entry not found: ${collection}/${entryId}`);
+}
+
+const { title, date, mod, description, tags } = entry.data;
+const { Content } = await render(entry);
+
+const layoutProps = {
+  title,
+  description,
+  ogType: "article" as const,
+  publishedTime: date?.toISOString(),
+  modifiedTime: mod?.toISOString(),
+  tags,
+};
+---
+
+<LayoutDefault {...layoutProps} type="main">
+  {
+    date && (
+      <time
+        datetime={getFormatDate(mod ?? date, "es-ES")}
+        class="text-muted text-sm"
+      >
+        actualizado el {getFormatDate(mod ?? date, "es-ES")}
+      </time>
+    )
+  }
+  <h1>{title}</h1>
+  <Content />
+</LayoutDefault>

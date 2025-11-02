@@ -1,0 +1,35 @@
+---
+import { getAllCollectionsByCategory } from "@/lib/collections";
+
+import type { CollectionName } from "@/content.config";
+import { getCollectionStaticPathsSlug } from "@/lib/astro";
+import {
+  CollectionIndexTemplate,
+  CollectionEntryTemplate,
+} from "@/components/templates";
+
+export { getCollectionStaticPathsSlug as getStaticPaths };
+
+const { slug, collection } = Astro.params as {
+  slug: string;
+  collection: CollectionName;
+};
+
+const { entry } = Astro.props;
+
+const page = parseInt(slug);
+const entries = (await getAllCollectionsByCategory())[collection];
+const isIndex = false;
+
+if (!entry && (!entries || isNaN(page) || page < 1)) {
+  return Astro.redirect("/");
+}
+---
+
+{
+  entry ? (
+    <CollectionEntryTemplate {...entry} />
+  ) : (
+    <CollectionIndexTemplate {collection} {entries} {page} {isIndex} />
+  )
+}

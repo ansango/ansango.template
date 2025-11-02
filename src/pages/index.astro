@@ -1,0 +1,39 @@
+---
+import {
+  getAllCollectionsByCategory,
+  getLastEntriesByAllCollections,
+  getTagsLimitedByLetter,
+  type Entry as EntryType,
+} from "@/lib/collections";
+import { site } from "@/constants";
+import { LayoutDefault } from "@/components/layout";
+import { latestReadingMapped } from "@/lib/raindrop";
+import {
+  HomeBookmarks,
+  HomeCollections,
+  HomeHero,
+  HomeLastPublication,
+  HomeTags,
+  HomePlayNow,
+} from "@/components/organisms/home";
+
+const meta = site.pages.home;
+const latestBookmarks = (await latestReadingMapped(
+  5,
+)) as unknown as EntryType[];
+const tags = await getTagsLimitedByLetter(1);
+const latests = await getLastEntriesByAllCollections();
+const collections = await getAllCollectionsByCategory();
+---
+
+<LayoutDefault {...meta} type="main">
+  <HomeHero />
+  <HomeLastPublication
+    entry={latests[0]}
+    isIndex={Boolean((latests[0]?.data as any)?.index)}
+  />
+  <HomeTags tags={tags} />
+  <HomeBookmarks bookmarks={latestBookmarks} />
+  <HomeCollections collections={collections} />
+  <HomePlayNow />
+</LayoutDefault>

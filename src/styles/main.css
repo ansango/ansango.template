@@ -1,0 +1,20 @@
+@layer base {
+  html {
+    @apply size-full text-base motion-safe:scroll-smooth;
+    @apply text-content bg-body;
+    scrollbar-gutter: stable;
+  }
+
+  body {
+    @apply h-dvh subpixel-antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  main {
+    @apply p-4;
+  }
+
+  section {
+    @apply border-divider py-4 [&:not(:last-child)]:border-b-[1px];
+  }
+}

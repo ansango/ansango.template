@@ -1,0 +1,40 @@
+{
+  "name": "ansango.template",
+  "type": "module",
+  "version": "0.0.1",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro",
+    "format": "prettier --write .",
+    "obsidian": "bun run obsidian:test && bun run obsidian:clean:export",
+    "obsidian:test": "chmod +x test-obsidian-export.sh && ./test-obsidian-export.sh",
+    "obsidian:clean": "rm -rf obsidian_test",
+    "obsidian:clean:export": "rm obsidian-export_Linux-x86_64.bin"
+  },
+  "dependencies": {
+    "@astrojs/rss": "^4.0.12",
+    "@astrojs/sitemap": "^3.6.0",
+    "@astrojs/svelte": "^7.2.0",
+    "@astrojs/ts-plugin": "^1.10.4",
+    "@fontsource-variable/inter": "^5.2.8",
+    "@tailwindcss/vite": "^4.1.13",
+    "@tanstack/svelte-query": "^6.0.3",
+    "astro": "^5.14.1",
+    "astro-pagefind": "^1.8.5",
+    "astro-rehype-relative-markdown-links": "^0.18.1",
+    "rehype-external-links": "^3.0.0",
+    "svelte": "^5.41.0",
+    "tailwindcss": "^4.1.13",
+    "typescript": "^5.9.3"
+  },
+  "overrides": {
+    "picomatch": "^4.0.3"
+  },
+  "devDependencies": {
+    "prettier": "^3.6.2",
+    "prettier-plugin-astro": "0.14.1",
+    "prettier-plugin-tailwindcss": "^0.7.1"
+  }
+}

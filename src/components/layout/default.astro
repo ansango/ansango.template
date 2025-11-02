@@ -1,0 +1,78 @@
+---
+/**
+ * 📄 LayoutDefault Component
+ * 
+ * @description Base layout wrapper for all pages.
+ * Provides HTML structure with Head, Header, Container, and Footer.
+ * 
+ * @usage
+ * ```astro
+ * <LayoutDefault
+ *   title="My Page"
+ *   description="Page description"
+ *   type="article"
+ * >
+ *   <h1>Content</h1>
+ * </LayoutDefault>
+ * ```
+ * 
+ * @compatible
+ * - 🎯 Base for all page templates
+ * - 📦 Uses Container for content centering
+ * - 🎨 Includes Head for SEO and metadata
+ * - 🧩 Supports breadcrumbs and Open Graph
+ */
+import { Container } from "@/components/atoms";
+import { Head, Header, Footer } from "./elements";
+import { site } from "@/constants";
+
+import type { Meta } from "@/content.config";
+import type { BreadcrumbItem } from "@/lib/breadcrumbs";
+
+interface Props extends Partial<Omit<Meta, "entriesPerPage">> {
+  lang?: string;
+  type?: "main" | "article" | "section" | "div";
+  image?: string;
+  ogType?: "website" | "article";
+  publishedTime?: string;
+  modifiedTime?: string;
+  tags?: string[];
+  breadcrumbs?: BreadcrumbItem[];
+}
+
+const {
+  title,
+  description,
+  lang = site.lang,
+  type = "div",
+  image,
+  ogType,
+  publishedTime,
+  modifiedTime,
+  tags,
+  breadcrumbs,
+} = Astro.props;
+
+const headProps = {
+  title,
+  description,
+  image,
+  type: ogType,
+  publishedTime,
+  modifiedTime,
+  tags,
+  breadcrumbs,
+};
+---
+
+<!doctype html>
+<html lang={lang}>
+  <Head {...headProps} />
+  <body class="flex min-h-dvh flex-col">
+    <Header />
+    <Container className={`[&_h1+_p]:text-muted flex-1 pt-14`} element={type}>
+      <slot />
+    </Container>
+    <Footer />
+  </body>
+</html>

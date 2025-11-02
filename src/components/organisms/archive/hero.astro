@@ -1,0 +1,34 @@
+---
+/**
+ * 🗃️ ArchiveHero Organism
+ * 
+ * @description Header for archive page with total entry count.
+ * Displays archive description and statistics.
+ * 
+ * @usage
+ * ```astro
+ * <ArchiveHero entriesCount={42} />
+ * ```
+ * 
+ * @compatible
+ * - 📊 Shows total entries count
+ * - 📄 Reads from site.pages.archive config
+ * - 🎨 Styled with border divider
+ */
+import { site } from "@/constants";
+
+interface Props {
+  entriesCount: number;
+}
+
+const { entriesCount } = Astro.props;
+---
+
+<div class="border-divider border-b-[1px]">
+  <h1>Archivo</h1>
+  <p class="text-muted/20">
+    {site.pages.archive.description} Hay un total de <span class="font-medium"
+      >{entriesCount}</span
+    > entradas publicadas.
+  </p>
+</div>
